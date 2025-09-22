@@ -1,0 +1,182 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>QuantumShield Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 16px; }
+    header { display:flex; align-items:center; gap:12px; margin-bottom: 12px; }
+    h1 { font-size: 20px; margin: 0 8px 0 0; }
+    .row { display:flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+    .card { border: 1px solid #ccc3; border-radius: 10px; padding: 12px; flex: 1 1 340px; min-width: 300px; }
+    label { font-size: 12px; color: #666; display:block; margin-bottom: 4px; }
+    input, textarea, select, button { padding: 8px; border-radius: 8px; border: 1px solid #9994; width: 100%; box-sizing: border-box; }
+    button { cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { border-bottom: 1px solid #ccc3; padding: 6px; text-align: left; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; background: #00000010; padding: 2px 6px; border-radius: 6px; }
+    .muted { color:#777; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .ok { color: #0a0; }
+    .err { color: #c00; }
+    .log { max-height: 220px; overflow: auto; background: #00000008; padding: 8px; border-radius: 8px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QuantumShield</h1>
+    <span class="muted">local wallet & tx sandbox</span>
+  </header>
+
+  <div class="row">
+    <div class="card" style="max-width:520px;">
+      <h3>Config</h3>
+      <div class="row">
+        <div style="flex:1;">
+          <label>API Base</label>
+          <input id="apiBase" value="http://localhost:4011">
+        </div>
+        <div style="flex:1;">
+          <label>X-QS-Passphrase</label>
+          <input id="pass" placeholder="QS_PASSPHRASE header">
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>X-QS-Api-Key (optional)</label>
+          <input id="apiKey" placeholder="QS_API_KEY header">
+        </div>
+        <div style="flex:1; display:flex; align-items:flex-end;">
+          <button onclick="connectWS()">Connect WS</button>
+        </div>
+      </div>
+      <div class="muted">Docs: <a target="_blank" id="docsLink" href="/docs">/docs</a></div>
+    </div>
+
+    <div class="card">
+      <h3>Keystore</h3>
+      <div class="row">
+        <button onclick="initKeystore()">Init Keystore</button>
+        <button onclick="addWallet()">Add Wallet</button>
+        <button onclick="listWallets()">List</button>
+      </div>
+      <table id="walletsTbl"></table>
+    </div>
+
+    <div class="card">
+      <h3>State</h3>
+      <div class="row">
+        <button onclick="initState()">Init State</button>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Address</label>
+          <input id="balAddr" placeholder="qs1..." class="mono">
+        </div>
+        <div style="flex:0 0 140px; display:flex; align-items:flex-end;">
+          <button onclick="getBalance()">Get Balance</button>
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Fund  To</label>
+          <input id="fundTo" placeholder="qs1..." class="mono">
+        </div>
+        <div style="flex:1;">
+          <label>Amount</label>
+          <input id="fundAmt" value="100000">
+        </div>
+        <div style="flex:0 0 140px; display:flex; align-items:flex-end;">
+          <button onclick="fund()">Fund</button>
+        </div>
+      </div>
+      <div id="balOut" class="muted mono"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <h3>Send Tx (plaintext memo)</h3>
+      <div class="row">
+        <div style="flex:1;">
+          <label>From</label>
+          <input id="sendFrom" placeholder="qs1..." class="mono">
+        </div>
+        <div style="flex:1;">
+          <label>To</label>
+          <input id="sendTo" placeholder="qs1..." class="mono">
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Amount</label>
+          <input id="sendAmt" value="1234">
+        </div>
+        <div style="flex:1;">
+          <label>Memo (optional)</label>
+          <input id="sendMemo" placeholder="hello">
+        </div>
+      </div>
+      <button onclick="sendTx()">Send</button>
+      <pre id="sendOut" class="log"></pre>
+    </div>
+
+    <div class="card">
+      <h3>Contacts & Encrypted Memo</h3>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Contact Label</label>
+          <input id="cLabel" placeholder="bob">
+        </div>
+        <div style="flex:1;">
+          <label>Contact Address</label>
+          <input id="cAddr" placeholder="qs1..." class="mono">
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Recipient KEM Public (hex)</label>
+          <textarea id="cKem" rows="3" placeholder="kem pub hex"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <button onclick="addContact()">Save Contact</button>
+        <button onclick="listContacts()">List</button>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Send Encrypted  From</label>
+          <input id="encFrom" placeholder="qs1..." class="mono">
+        </div>
+        <div style="flex:1;">
+          <label>To Label</label>
+          <input id="encToLabel" placeholder="bob">
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:1;">
+          <label>Amount</label>
+          <input id="encAmt" value="42">
+        </div>
+        <div style="flex:1;">
+          <label>Secret Memo</label>
+          <input id="encMemo" placeholder="hi (encrypted)">
+        </div>
+      </div>
+      <button onclick="sendEnc()">Send Encrypted</button>
+      <pre id="encOut" class="log"></pre>
+      <table id="contactsTbl"></table>
+    </div>
+
+    <div class="card">
+      <h3>Events (/ws)</h3>
+      <div id="wsState" class="muted">disconnected</div>
+      <pre id="events" class="log"></pre>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

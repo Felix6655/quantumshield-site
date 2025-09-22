@@ -1,0 +1,38 @@
+﻿{
+  "name": "quantumshield",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start:api": "node dist/server.js",
+    "dev": "nodemon --watch src --exec \"node --loader ts-node/esm src/server.ts\"",
+    "gen:wallet": "node --loader ts-node/esm src/cli.ts gen",
+    "addr:from": "node --loader ts-node/esm src/cli.ts addr",
+    "sign:test": "node --loader ts-node/esm src/cli.ts sign \"hello world\"",
+    "ks:init": "node --loader ts-node/esm src/cli.ts ks:init",
+    "ks:add": "node --loader ts-node/esm src/cli.ts ks:add",
+    "ks:add:mn": "node --loader ts-node/esm src/cli.ts ks:add:mn",
+    "ks:list": "node --loader ts-node/esm src/cli.ts ks:list",
+    "ks:show": "node --loader ts-node/esm src/cli.ts ks:show",
+    "ks:label": "node --loader ts-node/esm src/cli.ts ks:label",
+    "mnemonic:new": "node --loader ts-node/esm src/cli.ts mnemonic:new 24",
+    "mnemonic:save": "node --loader ts-node/esm src/cli.ts mnemonic:save",
+    "mnemonic:show": "node --loader ts-node/esm src/cli.ts mnemonic:show",
+    "acct:derive": "node --loader ts-node/esm src/cli.ts acct:derive",
+    "default:set": "node --loader ts-node/esm src/cli.ts default:set",
+    "default:get": "node --loader ts-node/esm src/cli.ts default:get",
+    "state:init": "node --loader ts-node/esm src/cli.ts state:init",
+    "state:fund": "node --loader ts-node/esm src/cli.ts state:fund",
+    "state:balance": "node --loader ts-node/esm src/cli.ts state:balance",
+    "tx:apply": "node --loader ts-node/esm src/cli.ts tx:apply",
+    "tx:send": "node --loader ts-node/esm src/cli.ts tx:send",
+    "api": "nodemon --watch src --exec \"node --loader ts-node/esm src/server.ts\"",
+    "backup:make": "node --loader ts-node/esm src/cli.ts backup:make",
+    "backup:list": "node --loader ts-node/esm src/cli.ts backup:list",
+    "backup:restore": "node --loader ts-node/esm src/cli.ts backup:restore"
+  },
+  "dependencies": {
+    "@noble/post-quantum": "^0.5.1"
+  }
+}

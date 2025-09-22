@@ -1,0 +1,40 @@
+﻿{
+  "name": "quantumshield",
+  "version": "0.8.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "build:js": "tsc",
+    "start:api": "node dist/server.js",
+    "dev": "nodemon --watch src --exec \"node --loader ts-node/esm src/server.ts\"",
+
+    "ks:init": "node --loader ts-node/esm src/cli.ts ks:init",
+    "ks:add": "node --loader ts-node/esm src/cli.ts ks:add",
+    "ks:add:mn": "node --loader ts-node/esm src/cli.ts ks:add:mn",
+    "ks:list": "node --loader ts-node/esm src/cli.ts ks:list",
+    "ks:show": "node --loader ts-node/esm src/cli.ts ks:show",
+    "ks:label": "node --loader ts-node/esm src/cli.ts ks:label",
+
+    "state:init": "node --loader ts-node/esm src/cli.ts state:init",
+    "state:fund": "node --loader ts-node/esm src/cli.ts state:fund",
+    "state:balance": "node --loader ts-node/esm src/cli.ts state:balance",
+
+    "default:set": "node --loader ts-node/esm src/cli.ts default:set",
+    "default:get": "node --loader ts-node/esm src/cli.ts default:get",
+
+    "kem:pub": "node --loader ts-node/esm src/cli.ts kem:pub",
+    "contacts:add": "node --loader ts-node/esm src/cli.ts contacts:add",
+    "contacts:list": "node --loader ts-node/esm src/cli.ts contacts:list",
+
+    "tx:send": "node --loader ts-node/esm src/cli.ts tx:send",
+    "tx:send:enc": "node --loader ts-node/esm src/cli.ts tx:send:enc",
+    "tx:open": "node --loader ts-node/esm src/cli.ts tx:open",
+
+    "api": "nodemon --watch src --exec \"node --loader ts-node/esm src/server.ts\"",
+
+    "uri:pay": "node --loader ts-node/esm src/cli.ts uri:pay",
+    "qr:addr": "node --loader ts-node/esm src/cli.ts qr:addr",
+    "qr:pay": "node --loader ts-node/esm src/cli.ts qr:pay"
+  }
+}
