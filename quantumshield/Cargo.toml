@@ -1,0 +1,12 @@
+﻿[package]
+name = "quantumshield"
+version = "0.1.0"
+edition = "2021"
+autobins = false
+
+
+
+[[bin]]
+name = "qs-node"
+path = "src/bin/qs-node.rs"
+

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start:api": "node dist/server.js",
-    "dev": "nodemon --watch src --exec \"node --loader ts-node/esm src/server.ts\"",
+    "dev":"next dev -p 3000",
 
     "ks:init": "node --loader ts-node/esm src/cli.ts ks:init",
     "ks:add": "node --loader ts-node/esm src/cli.ts ks:add",
