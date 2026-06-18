@@ -1,0 +1,22 @@
+[package]
+name = "qs-wasm-dilithium"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+pqcrypto-dilithium = "0.5"
+pqcrypto-traits = "0.3.5"
+wasm-bindgen = "0.2.100"
+getrandom = { version = "0.3", features = ["wasm_js"] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+
+[patch.crates-io]
+pqcrypto-internals = { path = "vendor/pqcrypto-internals-0.2.11" }
+pqcrypto-dilithium = { path = "vendor/pqcrypto-dilithium-0.5.0" }

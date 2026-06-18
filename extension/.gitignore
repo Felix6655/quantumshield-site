@@ -1,0 +1,7 @@
+node_modules/
+dist/
+wasm-dilithium/target/
+wasm-dilithium/.wasi-sysroot/
+wasm-dilithium/.cargo/config.toml
+*.png
+!public/icons/*.png

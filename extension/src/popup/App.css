@@ -1,0 +1,152 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  width: 360px;
+  background: #0f1320;
+  color: #e8ecf5;
+}
+
+.qs-app {
+  padding: 16px;
+  min-height: 420px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qs-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.qs-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #1d2436;
+}
+
+.qs-badge.ok { color: #58c4dc; background: #11324a; }
+.qs-badge.bad { color: #e08a8a; background: #3a1f24; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #2a3550;
+  color: #e8ecf5;
+}
+
+button.primary {
+  background: #58c4dc;
+  color: #0f1320;
+  font-weight: 600;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.qs-address-box button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+button.link {
+  background: transparent;
+  color: #9db3d6;
+  text-decoration: underline;
+  padding: 4px;
+}
+
+input, textarea {
+  font: inherit;
+  background: #161b2c;
+  border: 1px solid #2a3550;
+  color: #e8ecf5;
+  border-radius: 8px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.qs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qs-field label {
+  font-size: 12px;
+  color: #9db3d6;
+}
+
+.qs-address-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #161b2c;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.qs-error {
+  color: #e08a8a;
+  font-size: 13px;
+}
+
+.qs-muted {
+  color: #9db3d6;
+  font-size: 12px;
+}
+
+.qs-mempool-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.qs-mempool-item {
+  background: #161b2c;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.qs-row {
+  display: flex;
+  gap: 8px;
+}
+
+.qs-row > * {
+  flex: 1;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #1d2436;
+  margin: 4px 0;
+}
